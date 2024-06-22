@@ -1,11 +1,17 @@
-const express = require('express')
+import express from 'express'
+const fs = require('fs');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
+import route from'./routers/indexRouter.js';
+
+app.use(express.urlencoded());
+app.use(express.json())
+
+route(app);
+
+
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+    console.log(`Server listening on port ${port}`)
 })
