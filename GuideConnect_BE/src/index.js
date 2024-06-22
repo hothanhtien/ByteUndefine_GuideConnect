@@ -5,10 +5,15 @@ const port = process.env.PORT || 3000
 
 import route from'./routers/indexRouter.js';
 
+import db from './config/db'
+//connect db
+db.connect();
+
 app.use(express.urlencoded());
 app.use(express.json())
 
 route(app);
+
 
 
 
