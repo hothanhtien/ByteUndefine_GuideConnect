@@ -1,0 +1,30 @@
+{
+  "name": "guideconnect_be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel ./src --out-dir ./build",
+    "start": "nodemon --exec babel-node src/index.js",
+    "lint": "eslint ."
+  },
+  "author": "Tien Viet Toan Quang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/node": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/runtime": "^7.24.7",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2"
+  }
+}
