@@ -3,16 +3,16 @@ const fs = require('fs');
 const app = express()
 const port = process.env.PORT || 3000
 
-import route from'./routers/indexRouter.js';
+import router from'./apis/index';
 
-import db from './config/db'
+import db from './database/database.config'
 //connect db
 db.connect();
 
 app.use(express.urlencoded());
 app.use(express.json())
 
-route(app);
+app.use('/apis', router)
 
 
 
