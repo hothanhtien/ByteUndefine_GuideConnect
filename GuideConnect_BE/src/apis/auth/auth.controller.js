@@ -1,6 +1,7 @@
 import authService from "./auth.service";
 import userService from "../users/user.service";
 import UserModel from "../../models/user.model";
+import checkInforRes  from "../../service/checkIn4Res";
 class AuthController {
     login = async (req, res, next) => {
         const { userName, password } = req.body;
@@ -24,9 +25,10 @@ class AuthController {
                 acceptedPolicies: req.body.acceptedPolicies,
                 role: req.body.role
             };
-            const existingUser = await UserModel.findOne({ userName: newUser.userName });
-            if (existingUser) {
-                throw new Error('Username already exists');
+            try {
+                await checkInforRes(newUser);
+            } catch (errors) {
+                return res.status(409).json({ errors: errors });
             }
             const createdUser = await userService.createUser(newUser);
             return res.status(201).json(createdUser);
