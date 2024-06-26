@@ -9,5 +9,11 @@ class UserIdentityService {
     async sign(user) { 
         return jwt.sign({id:user.id}, this.JWT_SECRET, { expiresIn: '1d', algorithm: 'HS256' });
     } 
+    verify(token) {
+        return jwt.verify(token, this.JWT_SECRET);
+    }           
+    assignUserRequestContext(user,request) {
+        request.user = user;
+    }
 }
 export default new UserIdentityService();
