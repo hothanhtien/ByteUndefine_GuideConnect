@@ -3,7 +3,7 @@ import mongoose from  'mongoose';
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1/GuideConnect', {
+        await mongoose.connect('mongodb://tien:123456@51.79.173.117:27017/GuideConnect?authSource=admin', {
             // useNewUrlParser: true,
             // useUnifiedTopology: true,
             // useCreateIndex: true

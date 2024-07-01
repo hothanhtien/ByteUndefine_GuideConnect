@@ -7,7 +7,7 @@ import chat from './chat/chat.router'
 import { authorizeRole } from '../middleware/authorizeRole ';
 const router = express.Router();
 router.use('/auth', auth)
-router.use('/chat', chat)   
+router.use('/chat',authenticateJWT,authorizeRole(['user', 'guide']),  chat)   
 router.use('/userHome', authenticateJWT, authorizeRole(['user']) , userHome)
 // router.use('/guideHome', authenticateJWT, authorizeRole(['guide']) , guideHome)
 // router.use('/adminHome', authenticateJWT, adminHome)

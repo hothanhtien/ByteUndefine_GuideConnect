@@ -1,6 +1,7 @@
 import express from 'express'
 import http from 'http';
 import socketIo from 'socket.io';
+import chatService from './apis/chat/chat.service';
 import bodyParser from 'body-parser';
 const fs = require('fs');
 const app = express()
@@ -35,7 +36,7 @@ io.on('connection', (socket) => {
   
     socket.on('sendMessage', async ({ chatId, senderId, message }) => {
       try {
-        const chat = await ChatService.sendMessage(io, chatId, senderId, message);
+        const chat = await chatService.sendMessage(io, chatId, senderId, message);
         io.to(chatId).emit('newMessage', chat);
       } catch (error) {
         console.error(error.message);

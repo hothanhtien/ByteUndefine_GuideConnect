@@ -11,13 +11,13 @@ class ChatService {
         messages: []
       });
       await chat.save();
-    }
+    }   
     return chat;
   };
 
   sendMessage = async (io, chatId, senderId, message) => {
     let chat = await ChatModel.findById(chatId);
-    if (chat) {
+    if (chat) { 
       const newMessage = { sender_id: senderId, message};
       chat.messages.push(newMessage);
       await chat.save();
