@@ -16,7 +16,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.3",
     "mongoose-delete": "^1.0.2",
-    "nodemailer": "^6.9.14"
+    "nodemailer": "^6.9.14",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",

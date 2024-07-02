@@ -129,7 +129,7 @@ class AuthService {
         }
 
         const userDecoded = UserIdentityService.verify(token);
-        console.log('user endcode', userDecoded)
+        console.log('user endcode', userDecoded)    
         if (!userDecoded) {
             throw new Error('Invalid token');
         }

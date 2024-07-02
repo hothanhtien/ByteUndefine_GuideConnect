@@ -28,7 +28,10 @@ class AuthController {
                 nationality: req.body.nationality,
                 languages: req.body.languages,
                 acceptedPolicies: req.body.acceptedPolicies,
-                role: req.body.role
+                role: req.body.role,
+                gender: req.body.gender,
+                hometown: req.body.hometown,
+                workLocation: req.body.workLocation
             };
             try {
                 await checkInforRes(newUser);

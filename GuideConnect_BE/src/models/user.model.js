@@ -11,9 +11,12 @@ const UserSchema = new Schema({
     password: { type: String, required: true },
     nationality: { type: String, required: true },
     languages: { type: String, required: true },
+    workLocation: [{ type: String }],
     role: { type: String, default: false },
     acceptedPolicies: { type: Boolean, required: true },
     salt: { type: String, default: false },
+    gender: { type: String},
+    hometown: {type: String},
     forgetPasswordToken: { type: String },
     forgetPasswordTokenTime: { type: String },
 }, {

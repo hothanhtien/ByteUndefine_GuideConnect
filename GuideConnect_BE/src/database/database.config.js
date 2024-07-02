@@ -9,7 +9,7 @@ async function connect() {
             // useCreateIndex: true
         });
         console.log('Connect Successfully!!!!');
-    } catch (error) {
+    } catch (error) {                                       
         console.log('Connect Error:', error)
     }
 }
