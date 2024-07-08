@@ -28,63 +28,53 @@ class HomeController {
         }
     }
 
-    getGuideByNameSearch = async (req, res, next) => {
-        console.log('z11ô')
-        try {
-            let query = { role: 'guide' };
-            const { name, gender, hometown } = req.query;
-
-            if (name) {
-                query.fullName = new RegExp(name, 'i');
-            }
-            if (gender) {
-                query.gender = gender;
-            }
-            if (hometown) {
-                query.hometown = new RegExp(hometown, 'i');
-            }
-         
-            console.log(query)
-
-            const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 10;
-            const skip = (page - 1) * limit;
-
-            const searchResult = await UsersModel.find(query)
-                                                .skip(skip)
-                                                .limit(limit);
-            
-            const total = await UsersModel.countDocuments(query);
-
-            res.status(200).json({ guides: searchResult, total, page, limit });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
 
     getGuideByPlaceSearch = async (req, res, next) => {
         try {
             let query = { role: 'guide' };
-            const { workLocation, gender, tinh } = req.query;
-
+            const { workLocation, startTime, endTime, languages, gender, hometown, hobbies, sortBy } = req.query;
+            // sortBy: rating, giá: thấp cao, tuổi
+            console.log(req.query.workLocation)
             if (workLocation) {
                 query.workLocation = { $in: [new RegExp(workLocation, 'i')] };
             }
+            console.log(startTime, endTime)
+            if (startTime && endTime) {
+                query.freeTimeBegin = { $lte: new Date(startTime) };
+                query.freeEndTime = { $gte: new Date(endTime) }; 
+            }
+            console.log(req.query.languages)
+            if (languages) {
+                query.languages = { $in: [new RegExp(languages, 'i')] };
+            }
 
-            if (gender) {
+            if (hometown) {
+                query.hometown = { $in: [new RegExp(hometown, 'i')]};
+            }
+
+            if (hobbies) {
+                query.hobbies = { $in: [new RegExp(hobbies, 'i')]};
+            }
+
+
+            if (gender) { 
                 query.gender = gender;
             }
-            if (tinh) {
-                query.workLocation = new RegExp(tinh, 'i');
-            } 
-
-            // query.workLocation = { $exists: true, $ne: [] };
 
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
             const skip = (page - 1) * limit;
-
+            console.log(query)
+            console.log(sortBy)
+            let sortCriteria = {};
+            if (sortBy === 'price') {
+                sortCriteria = { price: 1 };  
+            } else if (sortBy === 'age') {
+                sortCriteria = { age: 1 }; 
+            }
+            
             const searchResult = await UsersModel.find(query)
+                                                .sort(sortCriteria)
                                                 .skip(skip)
                                                 .limit(limit);
 

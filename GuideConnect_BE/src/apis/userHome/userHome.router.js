@@ -8,10 +8,8 @@ const router = express.Router();
 
 //GET | lc/apis/userHome
 router.get('/', userHome.getAllGuide);
-//GET | lc/apis/userHome/searchByName
-router.get('/searchByName', userHome.getGuideByNameSearch)
 //GET | lc/apis/userHome/searchByPlace
-router.get('/searchByPlace', userHome.getGuideByPlaceSearch)
+router.get('/search', userHome.getGuideByPlaceSearch)
 //GET | lc/apis/userHome/:id
 router.get('/:id', userHome.getGuideDetail)
 

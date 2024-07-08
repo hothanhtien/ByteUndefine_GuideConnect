@@ -11,7 +11,7 @@ class AuthController {
             if (result instanceof Error) {
                 return res.status(401).json({ message: result.message });
             }
-            return res.status(200).json({ token: result.token, role: result.role });
+            return res.status(200).json({ token: result.token, role: result.role, languages: result.languages });
         } catch (error) { 
             console.error('Error logging in:', error);
             return res.status(500).json({ error: 'Internal server error' });
@@ -25,13 +25,12 @@ class AuthController {
                 userName: req.body.userName,
                 email: req.body.email,
                 password: req.body.password,
-                nationality: req.body.nationality,
                 languages: req.body.languages,
-                acceptedPolicies: req.body.acceptedPolicies,
-                role: req.body.role,
                 gender: req.body.gender,
                 hometown: req.body.hometown,
-                workLocation: req.body.workLocation
+                hobbies: req.body.hobbies,
+                workLocation: req.body.workLocation,
+                role: req.body.role
             };
             try {
                 await checkInforRes(newUser);
