@@ -9,7 +9,7 @@ const checkInforRes = async (user) => {
         if (existingUser) {
             errors.push('Username already exists');
         }
-
+        
         // Kiểm tra định dạng email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(user.email)) {

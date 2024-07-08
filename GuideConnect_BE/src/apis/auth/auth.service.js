@@ -26,7 +26,7 @@ class AuthService {
             }
          
             const token = await UserIdentityService.sign(user);
-            return { token, role: user.role };
+            return { token, role: user.role, languages: user.languages };
         }
         catch (error) {
             console.error('Error logging in:', error);
@@ -115,9 +115,6 @@ class AuthService {
             console.error('Failed to send email:', error);
             return { message: 'Failed to send email', error };
         }
-
-
-        // console.log(mail);
     }
 
     async resetPassword(data) {
