@@ -5,6 +5,7 @@ dotenv.config();
 
 class uploadController {
     uploadImage = async (req, res, next) => {
+      console.log('zô đây ko')
         try {
             const token = req.header('Authorization');
 

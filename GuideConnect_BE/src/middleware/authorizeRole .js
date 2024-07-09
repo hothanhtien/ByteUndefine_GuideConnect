@@ -10,6 +10,7 @@ const authorizeRole = (roles) => {
             return res.sendStatus(401); // Unauthorized
         }
         if (!roles.includes(user.role)) {
+            console.log('lỗi này')
             return res.sendStatus(403); // Forbidden
         }
         next();

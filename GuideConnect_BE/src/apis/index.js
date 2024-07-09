@@ -13,7 +13,7 @@ router.use('/auth', auth)
 router.use('/chat',authenticateJWT,authorizeRole(['user', 'guide']),  chat)   
 router.use('/userHome', authenticateJWT, authorizeRole(['user']) , userHome)
 // router.use('/upload', authenticateJWT, authorizeRole(['user', 'admin']), uploadCloud.array('images', 10), upload)
-router.use('/upload', authenticateJWT, authorizeRole(['user', 'admin']), upload)
+router.use('/upload', authenticateJWT, authorizeRole(['user', 'guide']), upload)
 
 // router.use('/guideHome', authenticateJWT, authorizeRole(['guide']) , guideHome)
 // router.use('/adminHome', authenticateJWT, adminHome)

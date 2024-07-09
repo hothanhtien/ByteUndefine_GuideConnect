@@ -14,6 +14,7 @@ const authenticateJWT = (req, res, next) => {
     //token.split(' ')[1];
     jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
+            console.log('lỗi')
             console.error('JWT verification error:', err);
             return res.sendStatus(403); 
         }
