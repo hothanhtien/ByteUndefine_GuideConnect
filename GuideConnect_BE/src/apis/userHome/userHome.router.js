@@ -16,7 +16,7 @@ router.get('/:id', userHome.getGuideDetail)
 
 // Phân trang nha mấy ní fe muốn 1 trang mấy item thì limit nha
 
-// http://localhost:3000/apis/userHome/searchByName?name=Gia&gender=nam&hometown=Quảng Bình&page=3&limit=20
+// http://localhost:3000/apis/userHome/search?name=Gia&gender=nam&hometown=Quảng Bình&page=3&limit=20
 
 
 export default router;

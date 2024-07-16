@@ -1,5 +1,5 @@
 import UsersModel from "../../models/user.model";
-
+import LocationModel from "../../models/location.model";
 class HomeController {
     getAllGuide = async (req, res, next) => {
         try {
@@ -79,8 +79,8 @@ class HomeController {
                                                 .limit(limit);
 
             const total = await UsersModel.countDocuments(query);
-
-            res.status(200).json({ guides: searchResult, total, page, limit });
+            const location = await LocationModel.find({ title: { $in: [new RegExp(workLocation, 'i')] } });
+            res.status(200).json({ guides: searchResult, total, page, limit, location  });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

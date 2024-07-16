@@ -4,6 +4,7 @@ import chatController from './chat.controller';
 const router = express.Router();
 
 
+router.get('/', chatController.getAllChat)
 
 router.post('/start-chat', chatController.startChat);
 

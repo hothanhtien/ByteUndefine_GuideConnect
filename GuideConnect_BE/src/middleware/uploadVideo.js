@@ -7,13 +7,11 @@ const videoStorage = new CloudinaryStorage({
   params: {
     folder: 'byteUndefine_GuideConnect/videos', // Thư mục lưu trữ trên Cloudinary
     resource_type: 'video', // Định dạng file là video
-    allowedFormats: ['mp4', 'avi', 'mkv'], // Các định dạng video được phép
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    }
+    allowed_formats: ['mp4', 'avi', 'mkv'], // Các định dạng video được phép
+    public_id: (req, file) => file.originalname // Đặt tên tệp video
   }
 });
 
 const uploadVideo = multer({ storage: videoStorage });
 
-module.exports = {uploadVideo};
+export { uploadVideo };

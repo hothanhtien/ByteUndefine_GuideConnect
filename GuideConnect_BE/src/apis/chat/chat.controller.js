@@ -1,6 +1,15 @@
 
+import ChatModel from "../../models/chat.model";
 import ChatService from "./chat.service"
 class chatController {
+    getAllChat  = async (req, res, next) => {
+        try {
+          const allChat = await ChatModel.find();
+          res.status(200).send({ allChat });
+        } catch (error) {
+          res.status(500).send(error.message);
+        }
+    };
     startChat = async (req, res, next) => {
         const { userId, guideId } = req.body;
         try {

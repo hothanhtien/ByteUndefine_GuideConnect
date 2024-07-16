@@ -23,6 +23,7 @@ const UserSchema = new Schema({
     rating: { type: Number },
     forgetPasswordToken: { type: String },
     forgetPasswordTokenTime: { type: String },
+    describe: {type: String}
 }, {
     timestamps: true,
 });
