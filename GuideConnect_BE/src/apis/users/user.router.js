@@ -4,8 +4,8 @@ import { authenticateJWT } from '../../middleware/authenticateJWT';
 
 const router = express.Router();
 
-router.get('/getAllUser', userController.getAllUser)
-router.get('/:id', userController.getUserDetial);
+router.get('/getAllUser/:idGuide', userController.getAllUser)
+router.get('/:id', userController.getUserDetial)
 
  
 

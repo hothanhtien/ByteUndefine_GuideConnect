@@ -8,6 +8,7 @@ const ChatSchema = new Schema({
     user_id: { type: String },
     guide_id: { type: String },
     messages: [MessageSchema], 
+    status: { type: String,}
 }, {
     timestamps: true,
 });

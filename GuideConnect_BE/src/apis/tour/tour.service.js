@@ -12,7 +12,8 @@ class TourService {
             startTime: startTime,
             endTime: endTime,
             tourType: tourType,
-            price: price
+            price: price,
+            status: 'upcoming'
         });
         const savedTour = await newTour.save();
         return savedTour;

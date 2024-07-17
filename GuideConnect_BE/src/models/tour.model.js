@@ -7,13 +7,14 @@ const { Schema } = mongoose;
 const TourSchema = new Schema({
     user_id: { type: String, required: true },
     guide_id: { type: String, required: true },
-    Tuorlocation: { type: String, required: true },  
+    Tuorlocation: [{ type: String, required: true }],  
     schedule: { type: String, required: true },
     numberUser: { type: Number, required: true },
     startTime: { type: Date, required: true },
     endTime: { type: Date, required: true },
     tourType: { type: String, required: true },
-    price: { type: Number, require: true}
+    price: { type: Number, require: true},
+    status: { type: String }
 }, {
     timestamps: true,
 });

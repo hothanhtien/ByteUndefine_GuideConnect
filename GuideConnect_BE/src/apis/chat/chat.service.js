@@ -8,8 +8,10 @@ class ChatService {
       chat = new ChatModel({
         user_id: userId,
         guide_id: guideId,
-        messages: []
+        messages: [],
+        status: 'wait'
       });
+  
       await chat.save();
     }   
     return chat;

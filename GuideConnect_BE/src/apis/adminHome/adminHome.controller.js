@@ -53,7 +53,7 @@ class AuthController {
         try {
             const {
                 avatar, fullName, phoneNumber, userName, email, password,
-                languages, workLocation, gender, hometown, hobbies, price,
+                languages, workLocation, role, gender, hometown, hobbies, price,
                 freeTimeBegin, freeEndTime, rating,
             } = req.body;
             
@@ -70,7 +70,7 @@ class AuthController {
                 password, 
                 languages,
                 workLocation,
-                role: 'guide', 
+                role, 
                 gender,
                 hometown,
                 hobbies,
