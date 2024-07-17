@@ -1,19 +1,21 @@
 import UsersModel from "../../models/user.model";
-
+import LocationModel from "../../models/location.model";
 class HomeController {
     getAllGuide = async (req, res, next) => {
         try {
-            console.log('user đã login la',req.user);
+            console.log('user đã login la', req.user);
             const page = parseInt(req.query.page) || 1; // Trang hiện tại
             const limit = parseInt(req.query.limit) || 10; // Số lượng mục trên mỗi trang
             const skip = (page - 1) * limit; // Số mục cần bỏ qua
             
+            const userLogin = await UsersModel.findOne({ _id: req.user.id})
+
             const listGuide = await UsersModel.find({ role: 'guide' })
                                               .skip(skip)
                                               .limit(limit);
             const total = await UsersModel.countDocuments({ role: 'guide' });
 
-            res.status(200).json({ guides: listGuide, total, page, limit });
+            res.status(200).json({ guides: listGuide, total, page, limit, userLogin });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -79,8 +81,8 @@ class HomeController {
                                                 .limit(limit);
 
             const total = await UsersModel.countDocuments(query);
-
-            res.status(200).json({ guides: searchResult, total, page, limit });
+            const location = await LocationModel.find({ title: { $in: [new RegExp(workLocation, 'i')] } });
+            res.status(200).json({ guides: searchResult, total, page, limit, location  });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
