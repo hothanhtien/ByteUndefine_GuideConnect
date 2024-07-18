@@ -26,6 +26,23 @@ class userController {
             res.status(500).json({ error: error.message });
         }
     }
+    updateUser = async (req, res, next) => {
+        try {
+            const idUpdate = req.params.id;
+            const updates = req.body;
+
+            const updatedUser = await UsersModel.findByIdAndUpdate(idUpdate, updates, { new: true });
+
+            if (!updatedUser) {
+                res.status(404).json({ message: 'user not found' });
+                return;
+            }
+
+            res.status(200).json({ updatedUser });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 export default new userController();
