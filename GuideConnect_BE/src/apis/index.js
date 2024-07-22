@@ -1,5 +1,4 @@
 import express from 'express'
-
 import auth from './auth/auth.router';
 import {authenticateJWT} from '../middleware/authenticateJWT';
 import userHome from './userHome/userHome.router';
@@ -14,14 +13,14 @@ import { uploadCloud } from '../middleware/uploadIMG'
 import { uploadVideo } from '../middleware/uploadVideo'
 const router = express.Router();
 router.use('/auth', auth)
-router.use('/chat', authenticateJWT, authorizeRole(['user', 'guide']),  chat)  
-router.use('/user', authenticateJWT, authorizeRole(['user', 'guide', 'admin']), user) 
+router.use('/chat', authenticateJWT, authorizeRole(['user', 'guide', 'local']),  chat)  
+router.use('/user', authenticateJWT, authorizeRole(['user', 'guide', 'admin', 'local']), user) 
 router.use('/userHome', authenticateJWT, authorizeRole(['user']) , userHome)
 router.use('/adminHome', authenticateJWT, authorizeRole(['admin']), adminHome)
 // router.use('/upload', authenticateJWT, authorizeRole(['user', 'admin']), uploadCloud.array('images', 10), upload)
-router.use('/upload', authenticateJWT, authorizeRole(['user', 'guide']), upload)
-router.use('/tour', authenticateJWT, authorizeRole(['guide', 'local']), tour)
-router.use('/stripe', authenticateJWT, authorizeRole(['user']), stripe)
+router.use('/upload', authenticateJWT, authorizeRole(['user', 'guide', 'local']), upload)
+router.use('/tour', authenticateJWT, authorizeRole(['guide', 'local',]), tour)
+router.use('/stripe', stripe)
 // router.use('/guideHome', authenticateJWT, authorizeRole(['guide']) , guideHome)
 // router.use('/adminHome', authenticateJWT, adminHome)
 
