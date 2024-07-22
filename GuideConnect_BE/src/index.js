@@ -15,7 +15,7 @@ import router from'./apis/index';
 import db from './database/database.config'
 //connect db
 db.connect();
-
+app.use(bodyParser.json({ verify: (req, res, buf) => req.rawBody = buf.toString() }));
 app.use(express.urlencoded());
 app.use(express.json())
 

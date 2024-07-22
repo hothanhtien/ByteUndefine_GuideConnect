@@ -14,6 +14,7 @@ const UserSchema = new Schema({
     workLocation: [{ type: String }],
     role: { type: String, default: 'user' }, 
     salt: { type: String, default: false },
+    age: { type: Number },
     gender: { type: String, required: true},
     hometown: {type: String, required: true},
     hobbies: [{ type: String , required: true}],

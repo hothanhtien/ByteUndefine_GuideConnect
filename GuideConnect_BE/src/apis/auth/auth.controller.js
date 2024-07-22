@@ -29,6 +29,7 @@ class AuthController {
                 gender: req.body.gender,
                 hometown: req.body.hometown,
                 hobbies: req.body.hobbies,
+                age: req.body.age,
                 workLocation: req.body.workLocation,
                 role: req.body.role
             };

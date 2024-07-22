@@ -10,6 +10,7 @@ class UserService {
             user.forgetPasswordToken = passwordHashed;
             // tạo user mới
             const newUser = new UsersModel(user);
+            console.log(newUser)
             await newUser.save();
             return newUser;
         } catch (error) {

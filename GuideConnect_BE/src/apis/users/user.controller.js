@@ -43,6 +43,14 @@ class userController {
             res.status(500).json({ error: error.message });
         }
     }
+    getAll = async (req, res, next) => {
+        try {
+           const user = await UsersModel.find();
+           res.status(200).json({ user });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 export default new userController();
