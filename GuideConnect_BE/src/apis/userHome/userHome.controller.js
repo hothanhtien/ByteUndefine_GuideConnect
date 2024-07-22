@@ -33,12 +33,15 @@ class HomeController {
 
     getGuideByPlaceSearch = async (req, res, next) => {
         try {
-            let query = { role: 'guide' };
-            const { workLocation, startTime, endTime, languages, gender, hometown, hobbies, sortBy } = req.query;
+            let query = { role: { $in: ['guide', 'local'] } }; 
+            const { workLocation, startTime, endTime, languages, gender, hometown, hobbies, sortBy, role } = req.query;
             // sortBy: rating, giá: thấp cao, tuổi
             console.log(req.query.workLocation)
             if (workLocation) {
                 query.workLocation = { $in: [new RegExp(workLocation, 'i')] };
+            }
+            if (role) {
+                query.role = role;
             }
             console.log(startTime, endTime)
             if (startTime && endTime) {
@@ -57,7 +60,6 @@ class HomeController {
             if (hobbies) {
                 query.hobbies = { $in: [new RegExp(hobbies, 'i')]};
             }
-
 
             if (gender) { 
                 query.gender = gender;
