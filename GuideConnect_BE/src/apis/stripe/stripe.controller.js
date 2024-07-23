@@ -190,10 +190,10 @@ class StripeController {
 
     async handleWebhook(req, res) {
         const sig = req.headers['stripe-signature'];
-        const rawBody = req.rawBody; // Sử dụng rawBody thay vì req.body
+        const rawBody = req.body; // Sử dụng rawBody thay vì req.body
     
         let event;
-    
+        
         try {
             event = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
             console.log('Webhook event constructed:', event);

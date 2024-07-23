@@ -12,9 +12,10 @@ router.get('/getBillByID/:id', stripeController.getBillByID);  //check
 router.delete('/deleteBill/:id', stripeController.deleteBill);  //check
 router.get('/getUnpaidBill/:user_id', stripeController.getUnpaidBill);
 router.post('/createSessionPayment', express.json(), express.urlencoded({ extended: true }), stripeController.createSessionPayment);
-router.post('/handleWebhook', express.raw({type: 'application/json'}), stripeController.handleWebhook);
+router.post('/handleWebhook',bodyParser.raw({ type: 'application/json' }),  stripeController.handleWebhook);
 router.post('/handlePaymentSuccess', stripeController.handlePaymentSuccess);
 
+// để hanldehok
 
 
 export default router;

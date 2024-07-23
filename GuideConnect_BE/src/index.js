@@ -1,4 +1,5 @@
 import express from 'express'
+import { Server } from 'socket.io';
 import http from 'http';
 import socketIo from 'socket.io';
 import chatService from './apis/chat/chat.service';
@@ -9,7 +10,15 @@ const port = process.env.PORT || 3000
 
 // Tạo server HTTP và tích hợp Socket.IO
 const server = http.createServer(app);
-const io = socketIo(server);
+// const io = socketIo(server);
+
+const io = new Server(server, {
+  cors: {
+      origin: '*',
+      methods: ['GET', 'POST']
+  },
+  transports: ['websocket', 'polling']
+});
 import router from'./apis/index';
 
 import db from './database/database.config'
