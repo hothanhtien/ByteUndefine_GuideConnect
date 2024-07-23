@@ -9,6 +9,7 @@ const { Schema } = mongoose;
 const PaymentSchema = new Schema({
     amount_money: { type: Number, required: true },
     user_id: { type: String, ref: 'User', required: true },
+    guide_id: { type: String, required: true },
     account_name: { type: String, required: true },
     description: { type: String, required: true },
     pay_method: { type: [String], required: true }

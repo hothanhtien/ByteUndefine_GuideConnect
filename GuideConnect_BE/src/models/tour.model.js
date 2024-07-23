@@ -8,6 +8,7 @@ const TourSchema = new Schema({
     user_id: { type: String, required: true },
     guide_id: { type: String, required: true },
     Tuorlocation: [{ type: String, required: true }],  
+    numberLocation: { type: Number},
     schedule: { type: String, required: true },
     numberUser: { type: Number, required: true },
     startTime: { type: Date, required: true },

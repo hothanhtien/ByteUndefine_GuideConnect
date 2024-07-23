@@ -156,41 +156,76 @@ class StripeController {
         }
     }
 
+    // async createSessionPayment(req, res) {
+    //     try {
+    //         const session = await stripe.checkout.sessions.create({
+    //             payment_method_types: ['card'],
+    //             mode: 'payment',
+    //             success_url: `${process.env.BASE_URL_FE}/success?session_id={CHECKOUT_SESSION_ID}`, // Cập nhật URL hợp lệ
+    //             cancel_url: `${process.env.BASE_URL_FE}/cancel`, // Cập nhật URL hợp lệ
+    //             line_items: req.body.items.map(item => ({
+    //                 price_data: {
+    //                     currency: 'vnd',
+    //                     product_data: {
+    //                         name: `Tiền Tháng ${item.month}`,
+    //                         description: item.description,
+    //                         metadata: { bill_id: item.bill_id }
+    //                     },
+    //                     unit_amount: item.price ? item.price : 200000
+    //                 },
+    //                 quantity: 1
+    //             })),
+    //             metadata: {
+    //                 user_id: req.body.user_id,
+    //                 description: req.body.description
+    //             }
+    //         });
+
+    //         res.json({ url: session.url });
+    //     } catch (error) {
+    //         console.error('Error creating session payment:', error);
+    //         res.status(500).json({ error: 'An error occurred while creating the session payment' });
+    //     }
+    // }
+
     async createSessionPayment(req, res) {
         try {
+            const { items, user_id, guide_id, description } = req.body; // Lấy guide_id từ body
+    
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
                 mode: 'payment',
                 success_url: `${process.env.BASE_URL_FE}/success?session_id={CHECKOUT_SESSION_ID}`, // Cập nhật URL hợp lệ
                 cancel_url: `${process.env.BASE_URL_FE}/cancel`, // Cập nhật URL hợp lệ
-                line_items: req.body.items.map(item => ({
+                line_items: items.map(item => ({
                     price_data: {
                         currency: 'vnd',
                         product_data: {
-                            name: `Tiền Tháng ${item.month}`,
+                            name: item.name, 
                             description: item.description,
-                            metadata: { bill_id: item.bill_id }
                         },
-                        unit_amount: item.price ? item.price : 200000
+                        unit_amount: item.price, 
                     },
-                    quantity: 1
+                    quantity: item.quantity, 
                 })),
                 metadata: {
-                    user_id: req.body.user_id,
-                    description: req.body.description
+                    user_id: user_id,
+                    guide_id: guide_id, 
+                    description: description,
                 }
             });
-
+    
             res.json({ url: session.url });
         } catch (error) {
             console.error('Error creating session payment:', error);
             res.status(500).json({ error: 'An error occurred while creating the session payment' });
         }
     }
+    
 
     async handleWebhook(req, res) {
         const sig = req.headers['stripe-signature'];
-        const rawBody = req.rawBody; // Sử dụng rawBody thay vì req.body
+        const rawBody = req.rawBody; 
     
         let event;
     
@@ -211,31 +246,16 @@ class StripeController {
                     const payment = new Payment({
                         amount_money: session.amount_total,
                         user_id: session.metadata.user_id,
+                        guide_id: session.metadata.guide_id,
                         account_name: session.customer_details.name,
                         description: session.metadata.description,
                         pay_method: session.payment_method_types,
                         created_at: new Date(session.created * 1000)
                     });
-    
+                    console.log(payment);
                     await payment.save();
                     console.log('Payment saved:', payment);
     
-                    const session_id = session.id;
-                    const sessionDetails = await stripe.checkout.sessions.retrieve(session_id, {
-                        expand: ['line_items.data.price.product']
-                    });
-                    console.log('Session details retrieved:', sessionDetails);
-    
-                    const lineItems = sessionDetails.line_items.data;
-                    for (const item of lineItems) {
-                        const billPayment = new BillPayment({
-                            bill_id: item.price.product.metadata.bill_id,
-                            payment_id: payment._id,
-                            amount: item.amount_total / 100
-                        });
-                        await billPayment.save();
-                        console.log('Bill payment saved:', billPayment);
-                    }
                 } catch (err) {
                     console.error('Error processing checkout session completed:', err);
                     return res.status(500).send('Internal Server Error');
@@ -248,6 +268,7 @@ class StripeController {
     
         res.status(200).send('Webhook received');
     }
+
     
 
     async handlePaymentSuccess(req, res) {
