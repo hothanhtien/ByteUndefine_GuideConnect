@@ -24,7 +24,9 @@ const UserSchema = new Schema({
     rating: { type: Number },
     forgetPasswordToken: { type: String },
     forgetPasswordTokenTime: { type: String },
-    describe: {type: String}
+    describe: {type: String},
+    imageCCCD: {type: String},
+    imageAuthenGuide: {type: String}
 }, {
     timestamps: true,
 });

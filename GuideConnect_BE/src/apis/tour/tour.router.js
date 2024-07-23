@@ -8,6 +8,8 @@ const router = express.Router();
 router.get('/', tourController.getAllTour)
 
 router.get('/getAllTourByGuideId/:guideId', tourController.getTourByGuide)
+ 
+router.get('/getAllTourByUserId/:userId', tourController.getTourByUser)
 
 router.get('/:id', tourController.getTourDetial)
 

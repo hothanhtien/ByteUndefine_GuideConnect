@@ -119,6 +119,18 @@ class tourController {
             res.status(500).send(error.message);
         }
     };
+    getTourByUser = async (req, res, next) => {
+        try {
+            const idGuide = req.params.userId;
+            const Tour = await TourModel.find({ user_id: idGuide});
+            if (!Tour) {
+                return res.status(404).send("Tour not found");
+            }
+            res.status(200).json({ Tour });
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    };
 }
 
 

@@ -42,7 +42,7 @@ class HomeController {
             }
             if (role) {
                 query.role = role;
-            }
+            }  
             console.log(startTime, endTime)
             if (startTime && endTime) {
                 query.freeTimeBegin = { $lte: new Date(startTime) };

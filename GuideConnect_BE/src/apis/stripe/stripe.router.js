@@ -15,6 +15,7 @@ router.post('/createSessionPayment', express.json(), express.urlencoded({ extend
 router.post('/handleWebhook', express.raw({type: 'application/json'}), stripeController.handleWebhook);
 router.post('/handlePaymentSuccess', stripeController.handlePaymentSuccess);
 
+//bodyParser.raw({ type: 'application/json' }), để hanldehok
 
 
 export default router;
