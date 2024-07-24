@@ -142,6 +142,14 @@ class tourController {
             res.status(500).send(error.message);
         }
     };
+    testDM = async (req, res, next) => {
+        try {
+          
+            res.status(200).json({ "ok": true });
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    };
 }
 
 
