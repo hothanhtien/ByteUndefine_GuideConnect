@@ -3,6 +3,8 @@ import http from 'http';
 import socketIo from 'socket.io';
 import chatService from './apis/chat/chat.service';
 import bodyParser from 'body-parser';
+var cors = require('cors')
+import morgan from 'morgan';
 const fs = require('fs');
 const app = express()
 const port = process.env.PORT || 3000
@@ -15,6 +17,8 @@ import router from'./apis/index';
 import db from './database/database.config'
 //connect db
 db.connect();
+app.use(cors());
+app.use(morgan());
 app.use(bodyParser.json({ verify: (req, res, buf) => req.rawBody = buf.toString() }));
 app.use(express.urlencoded());
 app.use(express.json())
