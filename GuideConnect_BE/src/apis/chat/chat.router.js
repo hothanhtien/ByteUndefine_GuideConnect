@@ -14,4 +14,5 @@ router.post('/send-message', chatController.sendMessage);
 router.delete('/deletechat/:id', chatController.deleteChat)
 
 router.post('/editStatusChat/:chatId', chatController.editStatus)
+
 export default router;

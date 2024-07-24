@@ -222,7 +222,7 @@ class StripeController {
                 }
             });
             
-            res.json({ url: session.url });
+            res.status(200).json({ url: session.url });
         } catch (error) {
             console.error('Error creating session payment:', error);
             res.status(500).json({ error: 'An error occurred while creating the session payment' });
