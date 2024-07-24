@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 import stripePackage from 'stripe';
 import mongoose from 'mongoose';
+
+import TourModel from "../../models/tour.model";
 const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
 // const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET || '';
@@ -190,13 +192,18 @@ class StripeController {
 
     async createSessionPayment(req, res) {
         try {
-            const { items, user_id, guide_id, description } = req.body; // Lấy guide_id từ body
-    
+            const { items, user_id, guide_id, description } = req.body; 
+            const tour = await TourModel.findOneAndUpdate(
+                {user_id: user_id, guide_id: guide_id},
+                {status: 'activity' },
+                { new: true }
+            )
+            console.log('tour', tour)
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
                 mode: 'payment',
-                success_url: `${process.env.BASE_URL_FE}/success?session_id={CHECKOUT_SESSION_ID}`, // Cập nhật URL hợp lệ
-                cancel_url: `${process.env.BASE_URL_FE}/cancel`, // Cập nhật URL hợp lệ
+                success_url: `${process.env.BASE_URL_FE}/success?session_id={CHECKOUT_SESSION_ID}`, 
+                cancel_url: `${process.env.BASE_URL_FE}/cancel`, 
                 line_items: items.map(item => ({
                     price_data: {
                         currency: 'vnd',
@@ -214,7 +221,7 @@ class StripeController {
                     description: description,
                 }
             });
-    
+            
             res.json({ url: session.url });
         } catch (error) {
             console.error('Error creating session payment:', error);
@@ -254,6 +261,8 @@ class StripeController {
                     });
                     console.log(payment);
                     await payment.save();
+
+                    
                     console.log('Payment saved:', payment);
     
                 } catch (err) {

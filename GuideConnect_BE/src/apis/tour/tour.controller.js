@@ -107,6 +107,17 @@ class tourController {
             res.status(500).send(error.message);
         }
     };
+    editStatusTuorByusser = async (req, res, next) => {
+        try {
+            const { user_id, guide_id } = req.body;
+            const tour = await TourModel.findOneAndUpdate(
+                {user_id: user_id, guide_id: guide_id},
+                {status: 'activity' })
+            res.status(200).json({ tour});
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    };
     getTourByGuide = async (req, res, next) => {
         try {
             const idGuide = req.params.guideId;

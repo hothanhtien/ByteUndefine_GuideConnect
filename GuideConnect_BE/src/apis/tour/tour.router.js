@@ -17,6 +17,8 @@ router.post('/createTour', tourController.createTour)
 
 router.post('/editStatus/:id', tourController.editStatusTuor)
 
+router.post('/editStatusbyUser', tourController.editStatusTuorByusser)
+
 router.post('/deleteTour/:id', tourController.deleteTour)
 
 router.post('/updateTour/:id', tourController.updateTour)
