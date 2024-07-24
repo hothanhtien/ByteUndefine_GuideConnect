@@ -13,6 +13,8 @@ router.get('/search', userHome.getGuideByPlaceSearch)
 //GET | lc/apis/userHome/:id
 router.get('/:id', userHome.getGuideDetail)
 
+router.post('/test', userHome.test)
+
 
 // Phân trang nha mấy ní fe muốn 1 trang mấy item thì limit nha
 

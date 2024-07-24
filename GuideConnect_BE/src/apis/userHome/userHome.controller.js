@@ -89,6 +89,14 @@ class HomeController {
             res.status(500).json({ error: error.message });
         }
     }
+    test = async (req, res, next) => {
+    try {
+          
+        res.status(200).json({ "ok": true });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
 }
 
 export default new HomeController();
