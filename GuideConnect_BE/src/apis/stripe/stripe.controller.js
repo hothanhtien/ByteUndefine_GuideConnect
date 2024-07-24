@@ -202,8 +202,8 @@ class StripeController {
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
                 mode: 'payment',
-                success_url: `${process.env.BASE_URL_FE}/success?session_id={CHECKOUT_SESSION_ID}`, 
-                cancel_url: `${process.env.BASE_URL_FE}/cancel`, 
+                success_url: 'exp://192.168.1.10:8081/PaymentSucess', 
+                cancel_url: 'exp://192.168.1.10:8081/PaymentFailed', 
                 line_items: items.map(item => ({
                     price_data: {
                         currency: 'vnd',
