@@ -194,16 +194,16 @@ class StripeController {
         try {
             const { items, user_id, guide_id, description } = req.body; 
             const tour = await TourModel.findOneAndUpdate(
-                {user_id: user_id, guide_id: guide_id},
-                {status: 'activity' },
+                { user_id: user_id, guide_id: guide_id },
+                { status: 'activity' },
                 { new: true }
             )
             console.log('tour', tour)
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
                 mode: 'payment',
-                success_url: `${process.env.BASE_URL_FE}/success`, 
-                cancel_url: `${process.env.BASE_URL_FE}/cancel`,
+                success_url: `https://www.facebook.com/TienHoWeb/`, 
+                cancel_url: `https://www.facebook.com/`,
                 line_items: items.map(item => ({
                     price_data: {
                         currency: 'vnd',

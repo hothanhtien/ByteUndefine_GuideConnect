@@ -54,7 +54,7 @@ class AuthController {
             const {
                 avatar, fullName, phoneNumber, userName, email, password,
                 languages, workLocation, role, gender, hometown, hobbies, price,
-                freeTimeBegin, freeEndTime, rating, age
+                freeTimeBegin, freeEndTime, rating, age, imageCCCD, imageAuthenGuide, describe
             } = req.body;
             
             if (!fullName || !phoneNumber || !userName || !email || !password || !languages || !workLocation || !gender || !hometown) {
@@ -78,7 +78,10 @@ class AuthController {
                 freeTimeBegin,
                 freeEndTime,
                 rating,
-                age
+                age,
+                imageCCCD,
+                imageAuthenGuide,
+                describe
             });
 
             
