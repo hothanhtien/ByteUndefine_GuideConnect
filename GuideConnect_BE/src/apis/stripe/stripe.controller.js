@@ -202,7 +202,7 @@ class StripeController {
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
                 mode: 'payment',
-                success_url: `https://www.facebook.com/TienHoWeb/`, 
+                success_url: `http://51.79.173.117:3001/success/`, 
                 cancel_url: `https://www.facebook.com/`,
                 line_items: items.map(item => ({
                     price_data: {
