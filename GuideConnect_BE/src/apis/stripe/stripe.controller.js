@@ -146,7 +146,7 @@ class StripeController {
                             $subtract: ['$fee', { $sum: '$payments.amount' }]
                         }
                     }
-                },
+                }, 
                 {
                     $match: { unpaid_fee: { $gt: 0 } }
                 }
@@ -248,7 +248,6 @@ class StripeController {
             case 'checkout.session.completed':
                 const session = event.data.object;
                 console.log('Checkout session completed:', session);
-    
                 try {
                     const payment = new Payment({
                         amount_money: session.amount_total,
@@ -261,20 +260,16 @@ class StripeController {
                     });
                     console.log(payment);
                     await payment.save();
-
-                    
                     console.log('Payment saved:', payment);
-    
                 } catch (err) {
                     console.error('Error processing checkout session completed:', err);
                     return res.status(500).send('Internal Server Error');
-                }
+                } 
                 break;
     
             default:
                 console.log(`Unhandled event type ${event.type}`);
         }
-    
         res.status(200).send('Webhook received');
     }
 

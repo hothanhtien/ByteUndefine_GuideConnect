@@ -29,7 +29,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Kết nối WebSocket
+
 io.on('connection', (socket) => {
     console.log('New client connected');
   
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
       console.log('Client disconnected');
     });
-  });
+});
 
   
 

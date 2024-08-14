@@ -6,7 +6,7 @@ dotenv.config();
 
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.header('Authorization');
-    console.log('Auth Header:', authHeader); // Log the auth header for debugging
+    console.log('Auth Header:', authHeader);
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         console.log('No token found');

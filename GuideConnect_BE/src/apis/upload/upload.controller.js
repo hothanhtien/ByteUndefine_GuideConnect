@@ -6,14 +6,14 @@ dotenv.config();
 class uploadController {
     uploadImage = async (req, res, next) => {
       console.log('zô đây ko')
-        try {
+        try { 
             const token = req.header('Authorization');
 
             if (!token) {
                 console.log('No token found');
                 return res.sendStatus(401); 
             }
-
+            
             const image = req.file.path;
             const result = await cloudinary.uploader.upload(image);
             const resUpdate = await uploadService.updateUser(token, result);
@@ -25,15 +25,15 @@ class uploadController {
                 });
             } else {
                 return res.status(resUpdate.status).json({
-                    message: resUpdate.message
-                });
-            }
+                    message: resUpdate.message 
+                }); 
+            } 
         } catch (error) {
             console.error('Upload error:', error);
             return res.status(400).json({
                 name: error.name,
                 message: error.message
-            });
+            }); 
         }
     }
     
@@ -54,7 +54,7 @@ class uploadController {
               message: "Upload video success",
               data: result
           });
-      } catch (error) {
+      } catch (error) { 
           console.error('Upload error:', error);
           return res.status(400).json({
               name: error.name,

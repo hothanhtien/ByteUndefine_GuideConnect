@@ -34,7 +34,7 @@ class HomeController {
     getGuideByPlaceSearch = async (req, res, next) => {
         try {
             let query = { role: { $in: ['guide', 'local'] } }; 
-            const { workLocation, startTime, endTime, languages, gender, hometown, hobbies, sortBy, role } = req.query;
+            const { workLocation, startTime, endTime, languages, gender, hometown, hobbies , sortBy, role } = req.query;
             // sortBy: rating, giá: thấp cao, tuổi
             console.log(req.query.workLocation)
             if (workLocation) {
