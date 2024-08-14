@@ -6,7 +6,7 @@ const router = express.Router();
 //POST | lc/apis/auth/login
 router.post('/login', AuthController.login)
 //POST | lc/apis/auth/register
-router.post('/register', AuthController.register)
+router.post('/register',  AuthController.register)
 //POST | lc/apis/auth/forgotPassword
 router.post('/forgot-password', AuthController.forgotPassword)
 //POST | lc/apis/auth/resetPassword
