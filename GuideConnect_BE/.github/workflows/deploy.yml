@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy Docker Application
 
 on:
   push:
@@ -6,11 +6,33 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t your-app-image .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image
+        run: |
+          docker tag your-app-image:latest your-dockerhub-username/your-app-image:latest
+          docker push your-dockerhub-username/your-app-image:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Setup SSH
@@ -19,6 +41,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H your-server-ip >> ~/.ssh/known_hosts
 
-      - name: Deploy to server
+      - name: Deploy Docker container to server
         run: |
-          ssh -i ~/.ssh/id_rsa deployuser@your-server-ip "cd /path/to/project && git pull origin main && systemctl restart your-app-service"
+          ssh -i ~/.ssh/id_rsa deployuser@your-server-ip "docker pull your-dockerhub-username/your-app-image:latest && docker stop your-app-container || true && docker rm your-app-container || true && docker run -d --name your-app-container -p 3000:3000 your-dockerhub-username/your-app-image:latest"
