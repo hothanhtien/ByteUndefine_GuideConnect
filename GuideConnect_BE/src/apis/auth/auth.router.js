@@ -8,7 +8,7 @@ router.post('/login', AuthController.login)
 //POST | lc/apis/auth/register
 router.post('/register',  AuthController.register)
 //POST | lc/apis/auth/forgotPassword
-router.post('/forgot-password', AuthController.forgotPassword)
+router.post('/forgot-password',  AuthController.forgotPassword)
 //POST | lc/apis/auth/resetPassword
 router.post('/reset-password', AuthController.resetPassword); 
 
