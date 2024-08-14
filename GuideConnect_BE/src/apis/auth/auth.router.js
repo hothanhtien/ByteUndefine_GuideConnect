@@ -12,5 +12,4 @@ router.post('/forgot-password', AuthController.forgotPassword)
 //POST | lc/apis/auth/resetPassword
 router.post('/reset-password', AuthController.resetPassword); 
 
-
 export default router;
