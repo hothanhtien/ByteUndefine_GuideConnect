@@ -13,7 +13,7 @@ import { uploadCloud } from '../middleware/uploadIMG'
 import { uploadVideo } from '../middleware/uploadVideo'
 const router = express.Router();
 router.use('/auth', auth)
-router.use('/chat', authenticateJWT, authorizeRole(['user', 'guide', 'local']),  chat)  
+router.use('/chat',  chat)  
 router.use('/user', authenticateJWT, authorizeRole(['user', 'guide', 'admin', 'local']), user) 
 router.use('/userHome', authenticateJWT, authorizeRole(['user']) , userHome)
 router.use('/adminHome', authenticateJWT, authorizeRole(['admin']), adminHome)
